@@ -1,5 +1,5 @@
 import { STORAGE_KEYS } from './constants';
-import { tasks } from './data';
+import { getTasks } from './data';
 import { saveToLocalStorage } from './local-storage-api';
 import { renderTasksList } from './render-tasks';
 
@@ -21,7 +21,9 @@ export function onSubmit(event) {
     taskDescription: descriptionValue,
     id: crypto.randomUUID(),
   };
-
+  const tasks = getTasks();
+console.log('task', task);
+  console.log('tasks', tasks);
   tasks.push(task);
 
   saveToLocalStorage(STORAGE_KEYS.TASKS, tasks);
@@ -30,5 +32,6 @@ export function onSubmit(event) {
 }
 
 export function onDOMContentLoaded() {
+  const tasks = getTasks();
   renderTasksList(tasks);
 }
